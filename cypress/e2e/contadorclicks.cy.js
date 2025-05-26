@@ -1,6 +1,6 @@
 describe('Contador de Clicks', () => {
   beforeEach(() => { //antes de cada it, visita la pagina
-    cy.visit('http://localhost:5173'); 
+    cy.visit('http://localhost:3000'); 
   });
 
   it('debe incrementar el contador al hacer click', () => { 
