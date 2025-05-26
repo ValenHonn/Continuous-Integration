@@ -17,4 +17,9 @@ jobs:
     - name: Lint
       run: npm run lint
     - name: Test de Cypress en modo headless
-      run: npm run cypress:run
+      run: |
+        npx serve dist -l 3000 &
+        npx wait-on http://localhost:3000
+        npm run cypress:run
+
+
