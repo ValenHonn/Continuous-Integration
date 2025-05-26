@@ -16,6 +16,8 @@ jobs:
       run: npm install
     - name: Lint
       run: npm run lint
+    - name: Build
+      run: npm run build
     - name: Test de Cypress en modo headless
       run: |
         npx serve dist -l 3000 &
