@@ -22,12 +22,10 @@ jobs:
       run: npm run build
     - name: Deploy
       run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
-  #  - name: Test de Cypress en modo headless
-  #    run: |
-  #      npx serve dist -l 3000 &
-  #      npx wait-on http://localhost:3000
-  #      npm run cypress:run
-
+    - name: Test de Cypress en modo headless #sin interfaz grafica
+      run: |
+        npx wait-on https://continuous-integration-rbne.onrender.com  
+        npm run cypress:run
       
 
 
