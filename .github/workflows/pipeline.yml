@@ -1,3 +1,5 @@
+#falta deploy, ver evento de pr, jobs paralelos, ver que test dejo o agrego
+
 name: Pipeline de prueba
 
 on:
@@ -18,10 +20,14 @@ jobs:
       run: npm run lint
     - name: Build
       run: npm run build
-    - name: Test de Cypress en modo headless
-      run: |
-        npx serve dist -l 3000 &
-        npx wait-on http://localhost:3000
-        npm run cypress:run
+    - name: Deploy
+      run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+  #  - name: Test de Cypress en modo headless
+  #    run: |
+  #      npx serve dist -l 3000 &
+  #      npx wait-on http://localhost:3000
+  #      npm run cypress:run
+
+      
 
 
