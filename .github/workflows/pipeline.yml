@@ -21,7 +21,7 @@ jobs:
     - name: Build
       run: npm run build
     - name: Deploy
-      run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+      run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
   #  - name: Test de Cypress en modo headless
   #    run: |
   #      npx serve dist -l 3000 &
