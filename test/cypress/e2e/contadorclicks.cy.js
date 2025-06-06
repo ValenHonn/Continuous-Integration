@@ -1,7 +1,6 @@
 describe('Contador de Clicks', () => {
   beforeEach(() => { //antes de cada it, visita la pagina
-    /*cy.visit('https://continuous-integration-rbne.onrender.com');*/
-    cy.visit('http://localhost:5173/')
+    cy.visit('https://continuous-integration-rbne.onrender.com');
   });
 
   it('debe incrementar el contador al hacer click', () => { 
