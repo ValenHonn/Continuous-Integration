@@ -65,7 +65,7 @@ jobs:
     - name: deploy
       run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
   
-  E2E Test:
+  E2E_Test:
     needs: [Deploy]
     runs-on: ubuntu-latest
     steps:
