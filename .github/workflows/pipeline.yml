@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  Linter:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -18,13 +18,63 @@ jobs:
       run: npm install
     - name: Lint
       run: npm run lint
-    - name: Build
+
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with: 
+        node-version: 18
+    - name: Instalar dependencias
+      run: npm install
+    - name: build
       run: npm run build
+    - uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: dist
+
+  Test:
+    needs: [Linter, Build]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with: 
+        node-version: 18
+    - name: Instalar dependencias
+      run: npm install
+    - uses: actions/download-artifact@v4
+      with:
+        name: dist
+        path: dist
     - name: Test unitario
       run: npm run test
-    - name: Deploy
+
+  Deploy:
+    needs: [Test]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with: 
+        node-version: 18
+    - name: Instalar dependencias
+      run: npm install
+    - name: deploy
       run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
-    - name: Test de Cypress en modo headless #sin interfaz grafica
+  
+  E2E Test:
+    needs: [Deploy]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with: 
+        node-version: 18
+    - name: Instalar dependencias
+      run: npm install
+    - name: Test de Cypress en modo headless #sin interfaz grafica, npx wait-on https://continuous-integration-rbne.onrender.com 
       run: |
-        npx wait-on https://continuous-integration-rbne.onrender.com  
         npm run cypress:run
