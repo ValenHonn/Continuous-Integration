@@ -70,8 +70,8 @@ jobs:
       if: success()  
       uses: slackapi/slack-github-action@v1.22.0
       with:
-        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-        message: "El deploy ha sido exitoso :white_check_mark: en el repositorio ${GITHUB_REPOSITORY} en la rama ${GITHUB_REF} por ${GITHUB_ACTOR}."
+        webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        slack-message: "El deploy ha sido exitoso :white_check_mark: en el repositorio ${GITHUB_REPOSITORY} en la rama ${GITHUB_REF} por ${GITHUB_ACTOR}."
       
   E2E_Test:
     needs: [Deploy]
