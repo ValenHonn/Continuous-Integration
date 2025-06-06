@@ -62,7 +62,7 @@ jobs:
     - uses: actions/setup-node@v4
       with: 
         node-version: 18
-    - name: Instalar dependencias
+    - name: instalar dependencias
       run: npm install
     - name: deploy
       run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
