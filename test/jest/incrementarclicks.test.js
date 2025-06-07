@@ -20,7 +20,7 @@ describe('Pruebas para la función incrementarClick', () => {
   test('Debería incrementar el contador correctamente', () => {
     expect(incrementarClick()).toBe(1);  
     expect(incrementarClick()).toBe(2); 
-    expect(incrementarClick()).toBe(3);  
+    expect(incrementarClick()).toBe(4);  
   });
 
 });
