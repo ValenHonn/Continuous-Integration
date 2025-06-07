@@ -73,7 +73,7 @@ jobs:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
         payload: |
-          text: "Greetings!"
+          text: "El deploy ha sido exitoso :white_check_mark: en el repositorio ${GITHUB_REPOSITORY} en la rama ${GITHUB_REF} por ${GITHUB_ACTOR}."
       
   E2E_Test:
     needs: [Deploy]
