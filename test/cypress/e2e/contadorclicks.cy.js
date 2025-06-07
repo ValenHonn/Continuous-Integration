@@ -7,6 +7,6 @@ describe('Contador de Clicks', () => {
     cy.contains('Clicks: 0'); //busca el elemento con ese texto
     cy.get('#botonClick').click(); //busca el elemento con ese id, simula un click
     cy.get('#botonClick').click();
-    cy.contains('Clicks: 3'); //verifica que haya un elemento con el texto Clicks: 2
+    cy.contains('Clicks: 2'); //verifica que haya un elemento con el texto Clicks: 2
   });
 });
