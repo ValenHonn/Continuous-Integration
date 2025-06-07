@@ -19,6 +19,7 @@ jobs:
     - name: Lint
       run: npm run lint
 
+
   Build:
     runs-on: ubuntu-latest
     steps:
@@ -52,6 +53,15 @@ jobs:
     - name: Test unitario
       run: npm run test
 
+    - name: Notificar fallo de test unitario
+      if: failure()  
+      uses: slackapi/slack-github-action@v2.1.0
+      with:
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          text: "El test unitario ha fallado :x: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
+
    
 
   Deploy:
@@ -66,14 +76,24 @@ jobs:
       run: npm install
     - name: deploy
       run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
-    - name: Notificar éxito de deploy
+
+    - name: Notificar exito de deploy
       if: success()  
       uses: slackapi/slack-github-action@v2.1.0
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
         payload: |
-          text: "El deploy ha sido exitoso :white_check_mark: en el repositorio ${GITHUB_REPOSITORY} en la rama ${GITHUB_REF} por ${{ github.actor }}."
+          text: "El deploy ha sido exitoso :white_check_mark: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
+      
+    - name: Notificar fallo de deploy
+      if: failure()  
+      uses: slackapi/slack-github-action@v2.1.0
+      with:
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          text: "El deploy ha fallado :x: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
       
   E2E_Test:
     needs: [Deploy]
@@ -88,3 +108,21 @@ jobs:
     - name: Test de Cypress en modo headless #sin interfaz grafica, npx wait-on https://continuous-integration-rbne.onrender.com 
       run: |
         npm run cypress:run
+
+    - name: Notificar exito de test e2e
+      if: sucess()  
+      uses: slackapi/slack-github-action@v2.1.0
+      with:
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          text: "El test e2e ha sido exitoso :white_check_mark: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
+
+    - name: Notificar fallo de test e2e
+      if: failure()  
+      uses: slackapi/slack-github-action@v2.1.0
+      with:
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          text: "El test e2e ha fallado :x: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
