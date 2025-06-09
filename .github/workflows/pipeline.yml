@@ -3,7 +3,7 @@
 name: Pipeline de prueba
 
 on:
-  pull request:
+  pull_request:
     branches: [ "main" ]
 
 jobs:
@@ -20,7 +20,6 @@ jobs:
       run: npm run lint
 
 
-  
 
   Test:
     runs-on: ubuntu-latest
