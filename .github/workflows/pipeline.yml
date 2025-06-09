@@ -73,6 +73,8 @@ jobs:
         webhook-type: incoming-webhook
         payload: |
           text: "El deploy ha fallado :x: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
+
+#agregar esperar el deploy
       
   E2E_Test:
     needs: [Deploy]
