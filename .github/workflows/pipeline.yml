@@ -20,24 +20,9 @@ jobs:
       run: npm run lint
 
 
-  Build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with: 
-        node-version: 18
-    - name: Instalar dependencias
-      run: npm install
-    - name: build
-      run: npm run build
-    - uses: actions/upload-artifact@v4
-      with:
-        name: dist
-        path: dist
+  
 
   Test:
-    needs: [Linter, Build]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -65,7 +50,7 @@ jobs:
    
 
   Deploy:
-    needs: [Test]
+    needs: [Linter, Test]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
