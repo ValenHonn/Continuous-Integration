@@ -1,26 +1,16 @@
-import { incrementarClick, configurarBotonClick } from "../../src/main.js"
-
-describe('Pruebas para la función incrementarClick', () => {
-  let contador;
-  let boton;
-
-  beforeEach(() => {
-    
-    document.body.innerHTML = ` 
-      <button id="botonClick">Click me</button>
-      <p id="contador">Clicks: 0</p>
-    `;
-    boton = document.getElementById('botonClick');
-    contador = document.getElementById('contador');
+import { incrementarClick } from "../../src/main.js";
 
 
-    configurarBotonClick(boton,contador);
-  }); 
+test('Debería incrementar el numero de clicks', () => {
+      
+  expect(incrementarClick()).toBe(1);  
+  expect(incrementarClick()).toBe(2); 
+  expect(incrementarClick()).toBe(3);  
 
-  test('Debería incrementar el contador correctamente', () => {
-    expect(incrementarClick()).toBe(1);  
-    expect(incrementarClick()).toBe(2); 
-    expect(incrementarClick()).toBe(3);  
-  });
+});
+
+test('Debería lanzar un error si se pasa un parametro', () => {
+  
+  expect(incrementarClick(5)).toBe('incrementarClick no debe recibir parametros');
 
 });
