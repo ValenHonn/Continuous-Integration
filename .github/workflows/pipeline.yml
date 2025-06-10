@@ -1,5 +1,3 @@
-#falta deploy, ver evento de pr, jobs paralelos, ver que test dejo o agrego
-
 name: Pipeline de prueba
 
 on:
