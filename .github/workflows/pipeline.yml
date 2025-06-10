@@ -44,7 +44,6 @@ jobs:
           text: "El test unitario ha fallado :x: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
 
 
-
   Start-Deploy:
     needs: [Linter, Test]
     runs-on: ubuntu-latest
@@ -56,17 +55,8 @@ jobs:
     - name: instalar dependencias
       run: npm install
     - name: deploy
-      run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+      run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }} 
 
-    - name: Notificar exito de deploy
-      if: success()  
-      uses: slackapi/slack-github-action@v2.1.0
-      with:
-        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-        webhook-type: incoming-webhook
-        payload: |
-          text: "El deploy ha sido exitoso :white_check_mark: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
-      
 
   Wait-Deploy:
     runs-on: ubuntu-latest
@@ -77,7 +67,7 @@ jobs:
         run: |
           deploy_status="pending"
           while [ "$deploy_status" != "live" ]; do
-            response=$(curl -s -H "Authorization: Bearer $RENDER_API_KEY" "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys/fake-endpoint")
+            response=$(curl -s -H "Authorization: Bearer $RENDER_API_KEY" "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys")
             echo "Render API response: $response"
             deploy_status=$(echo $response | jq -r '.[0].deploy.status')
             echo "Current deploy status: $deploy_status"
@@ -100,11 +90,21 @@ jobs:
           payload: |
             text: "El deploy ha fallado :x: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
 
+      - name: Notificar exito de deploy
+        if: success()  
+        uses: slackapi/slack-github-action@v2.1.0
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            text: "El deploy ha sido exitoso :white_check_mark: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
+
 
       
   E2E_Test:
     needs: [Wait-Deploy]
     runs-on: ubuntu-latest
+    if: needs.Wait-Deploy.result == 'success'
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -112,7 +112,7 @@ jobs:
         node-version: 18
     - name: Instalar dependencias
       run: npm install
-    - name: Test de Cypress en modo headless #sin interfaz grafica, npx wait-on https://continuous-integration-rbne.onrender.com 
+    - name: Test de Cypress
       run: |
         npm run cypress:run
 
