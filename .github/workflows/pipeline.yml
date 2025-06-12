@@ -38,7 +38,7 @@ jobs:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
         payload: |
-          text: "El test unitario ha fallado :x: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
+          text: "El test unitario ha fallado :x: en el repositorio ${{ github.repository }} en ${{ github.ref }} por ${{ github.actor }}."
 
 
   Start-Deploy:
@@ -85,7 +85,7 @@ jobs:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
-            text: "El deploy ha fallado :x: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
+            text: "El deploy ha fallado :x: en el repositorio ${{ github.repository }} en ${{ github.ref }} por ${{ github.actor }}."
 
       - name: Notificar exito de deploy
         if: success()  
@@ -94,7 +94,7 @@ jobs:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
-            text: "El deploy ha sido exitoso :white_check_mark: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
+            text: "El deploy ha sido exitoso :white_check_mark: en el repositorio ${{ github.repository }} en ${{ github.ref }} por ${{ github.actor }}."
 
 
       
@@ -120,7 +120,7 @@ jobs:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
         payload: |
-          text: "El test e2e ha sido exitoso :white_check_mark: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
+          text: "El test e2e ha sido exitoso :white_check_mark: en el repositorio ${{ github.repository }} en ${{ github.ref }} por ${{ github.actor }}."
 
     - name: Notificar fallo de test e2e
       if: failure()  
@@ -129,5 +129,5 @@ jobs:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
         payload: |
-          text: "El test e2e ha fallado :x: en el repositorio ${{ github.repository }} en la rama ${{ github.ref }} por ${{ github.actor }}."
+          text: "El test e2e ha fallado :x: en el repositorio ${{ github.repository }} en ${{ github.ref }} por ${{ github.actor }}."
           
