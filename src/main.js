@@ -4,7 +4,7 @@ export function incrementarClick(param) {
   if (param !== undefined) {
     return('incrementarClick no debe recibir parametros');
   }
- 
+  clicks++;
   return clicks;  
 }
 
@@ -21,3 +21,4 @@ const elementoboton = document.getElementById('botonClick');
 document.addEventListener('DOMContentLoaded', () => { //para asegurar que primero se cargue el dom, y despues llamar a la funcion que escucha los eventos
   configurarBotonClick(elementoboton,elementocontador);
 });
+
