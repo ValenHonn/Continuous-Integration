@@ -2,7 +2,7 @@ let clicks = 0;
 
 export function incrementarClick(param) {
   if (param !== undefined) {
-    return('incrementarClick no debe recibir parametros');
+    return('incrementarClick no debe recibir parametros')
   }
   clicks++;
   return clicks;  
