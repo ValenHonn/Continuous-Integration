@@ -22,3 +22,4 @@ document.addEventListener('DOMContentLoaded', () => { //para asegurar que primer
   configurarBotonClick(elementoboton,elementocontador);
 });
 
+
