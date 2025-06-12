@@ -1,10 +1,10 @@
 name: Pipeline de prueba
 
 on:
-  #pull_request:
-    #branches: [ "main" ]
-  push: 
+  pull_request:
     branches: [ "main" ]
+  #push: 
+    #branches: [ "main" ]
 
 jobs:
   Linter:
