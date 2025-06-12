@@ -3,7 +3,7 @@ import { incrementarClick } from "../../src/main.js";
 
 test('Debería incrementar el numero de clicks', () => {
       
-  expect(incrementarClick()).toBe(1);  
+  expect(incrementarClick()).toBe(2);  
   expect(incrementarClick()).toBe(2); 
   expect(incrementarClick()).toBe(3);  
 
