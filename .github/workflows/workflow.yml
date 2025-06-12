@@ -1,4 +1,4 @@
-name: Pipeline de prueba
+name: Workflow CI
 
 on:
   pull_request:
